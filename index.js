@@ -154,4 +154,4 @@ app.get('/', (req, res) => {
     res.send('assalamlu alaikum')
 })
 
-app.listen(4000);
+app.listen(process.env.PORT || 4000);
