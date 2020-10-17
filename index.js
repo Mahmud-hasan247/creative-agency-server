@@ -4,7 +4,7 @@ const cors = require('cors');
 const fs = require('fs-extra');
 const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
-const fileUpload = require('express-fileUpload');
+const fileUpload = require('express-fileupload');
 const MongoClient = require('mongodb').MongoClient;
 
 
