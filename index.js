@@ -15,13 +15,24 @@ app.use(express.static('icons'));
 app.use(fileUpload());
 
 
+
+
+const serviceAccount = require("./configs/creative-agency-391a7-firebase-adminsdk-s96pq-1fe780acc2");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: process.env.DB_URL
+});
+
+
+
 var uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0-shard-00-00.yetxo.mongodb.net:27017,cluster0-shard-00-01.yetxo.mongodb.net:27017,cluster0-shard-00-02.yetxo.mongodb.net:27017/${process.env.DB_NAME}?ssl=true&replicaSet=atlas-8altey-shard-0&authSource=admin&retryWrites=true&w=majority`;
 MongoClient.connect(uri, { useUnifiedTopology: true }, function (err, client) {
     const services = client.db("CreativeAgencyInfo").collection("services");
     const admins = client.db("CreativeAgencyInfo").collection("admins");
     const reviews = client.db("CreativeAgencyInfo").collection("reviews");
     const orderedServices = client.db("CreativeAgencyInfo").collection("orderedServices");
-    console.log('alhamdulillah database is connected');
+    console.log('alhamdulillah');
 
 
     app.get('/services', (req, res) => {
@@ -44,7 +55,6 @@ MongoClient.connect(uri, { useUnifiedTopology: true }, function (err, client) {
                 res.send(documents)
             })
     });
-
 
     app.get('/myOrderedServices/:email', (req, res) => {
         const bearer = req.headers.authorization;
